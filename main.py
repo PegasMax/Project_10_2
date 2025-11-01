@@ -15,7 +15,7 @@ def calculate_taxes(prices: list[float], tax_rate: float) -> list[float]:
     return taxed_prices
 
 
-def calculate_tax(price, tax_rate, discount: float = 0, is_round: bool = False) -> float:
+def calculate_tax(price, tax_rate, *, discount: float = 0, is_round: bool = False) -> float:
     """Получает цену товара и налоговую ставку, а возвращает стоимость товара с учетом налога."""
 
     if not ((type(price) in (int, float)) and (type(tax_rate) in (int, float))):
@@ -27,9 +27,9 @@ def calculate_tax(price, tax_rate, discount: float = 0, is_round: bool = False) 
     if price <= 0:
         raise ValueError("Неверная цена")
 
-    last_price = (price + price * tax_rate / 100) * (100 - discount) / 100
-
     if is_round:
-        last_price = round(last_price, 2)
+        last_price = round((price + price * tax_rate / 100) * (100 - discount) / 100, 2)
+    else:
+        last_price = (price + price * tax_rate / 100) * (100 - discount) / 100
 
     return last_price

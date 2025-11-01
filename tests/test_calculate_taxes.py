@@ -51,11 +51,11 @@ def test_calculate_tax_wrong_parameters(price, tax_rate, expected):
 
 @pytest.mark.parametrize("price, tax_rate, discount, expected", [(10, 10, 50, 5.5), (50, 40, 0, 70), (1, 50, 100, 0)])
 def test_calculate_tax_with_discount(price, tax_rate, discount, expected):
-    assert calculate_tax(price, tax_rate, discount) == expected
+    assert calculate_tax(price, tax_rate, discount=discount) == expected
 
 
 @pytest.mark.parametrize(
-    "price, tax_rate, is_rounded, expected", [(10, 2.2, True, 10.22), (50, 40, True, 70), (1, 5.111, True, 1.05)]
+    "price, tax_rate, is_rounded, expected", [(10, 2.2, True, 10.22), (50, 2.11, False, 51.055), (1, 5.111, True, 1.05)]
 )
 def test_calculate_tax_with_discount(price, tax_rate, is_rounded, expected):
     assert calculate_tax(price, tax_rate, is_round=is_rounded) == expected
